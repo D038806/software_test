@@ -60,7 +60,8 @@ public class ArithmeticRMIImpl extends UnicastRemoteObject implements Arithmetic
 	}
 
 	// Implementation of the service defended in the interface
-	public String singIn(String name) throws java.rmi.RemoteException {
+	public String singIn(String names) throws java.rmi.RemoteException {
+		String name = names.replaceAll("\\s+", "");
 		response = "";
 		try {
 			connect();
@@ -92,7 +93,8 @@ public class ArithmeticRMIImpl extends UnicastRemoteObject implements Arithmetic
 		return response;
 	}
 
-	public String register(String name) throws java.rmi.RemoteException {
+	public String register(String names) throws java.rmi.RemoteException {
+		String name = names.replaceAll("\\s+", "");
 		try {
 			connect();
 			st.execute("SELECT * FROM user WHERE username='" + name + "'");
