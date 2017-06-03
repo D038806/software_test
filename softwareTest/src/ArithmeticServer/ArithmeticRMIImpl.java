@@ -60,69 +60,87 @@ public class ArithmeticRMIImpl extends UnicastRemoteObject implements Arithmetic
 	}
 
 	// Implementation of the service defended in the interface
-	public String singIn(String names) throws java.rmi.RemoteException {
-		String name = names.replaceAll("\\s+", "");
+	public String singIn(String name) throws java.rmi.RemoteException {
 		response = "";
-		try {
-			connect();
-			st.execute("SELECT * FROM user WHERE username='" + name + "'");
-			ResultSet rs = st.getResultSet();
-			if (rs.next() == false) {
-				response = "The Username isn't exist.";
-			} else if (rs.getString("username").compareTo(name) == 0) {
-				response = "Sign in success.";
+		if (name.contains(" ") || name.contains("*") || name.contains("!") || name.contains("#")
+				|| name.contains("%")) {
+			response = "It's illegal.";
+			System.out.println(response);
+		}
 
-				st.execute("SELECT * FROM user");
-				rs = st.getResultSet();
+		else {
+			try {
+				connect();
+				st.execute("SELECT * FROM user WHERE username='" + name + "'");
+				ResultSet rs = st.getResultSet();
+				if (rs.next() == false) {
+					response = "The Username isn't exist.";
+				} else if (rs.getString("username").compareTo(name) == 0) {
+					response = "Sign in success.";
 
-				while (rs.next()) { // readline repeat
-					if (rs.getString("username").equals(name)) {
-						response += rs.getString("portNumber");
+					st.execute("SELECT * FROM user");
+					rs = st.getResultSet();
+
+					while (rs.next()) { // readline repeat
+						if (rs.getString("username").equals(name)) {
+							response += rs.getString("portNumber");
+						}
 					}
+
+					System.out.println(response);
+
+					insideSystem = true;
 				}
 
-				System.out.println(response);
-
-				insideSystem = true;
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 
 		return response;
+
 	}
 
-	public String register(String names) throws java.rmi.RemoteException {
-		String name = names.replaceAll("\\s+", "");
-		try {
-			connect();
-			st.execute("SELECT * FROM user WHERE username='" + name + "'");
-			ResultSet rs = null;
+	public String register(String name) throws java.rmi.RemoteException {
+		response = "";
+		if (name.contains(" ") || name.contains("*") || name.contains("!") || name.contains("#")
+				|| name.contains("%")) {
+			response = "It's illegal.";
+			System.out.println(response);
+		} else {
+			try {
+				connect();
+				st.execute("SELECT * FROM user WHERE username='" + name + "'");
+				ResultSet rs = null;
 
-			rs = st.getResultSet();
-			if (rs.next() == false) {
-				response = "register Success" + port;
-				System.out.println(response);
+				rs = st.getResultSet();
+				if (rs.next() == false) {
+					response = "register Success" + port;
+					System.out.println(response);
 
-				String query = " insert into user (username, portNumber)" + " values (?, ?)";
-				// create the mysql insert preparedstatement
-				PreparedStatement preparedStmt = conn.prepareStatement(query);
-				preparedStmt.setString(1, name);
-				preparedStmt.setInt(2, port);
+					String query = " insert into user (username, portNumber)" + " values (?, ?)";
+					// create the mysql insert preparedstatement
+					PreparedStatement preparedStmt = conn.prepareStatement(query);
+					preparedStmt.setString(1, name);
+					preparedStmt.setInt(2, port);
 
-				preparedStmt.execute();
-			} else if (rs.getString("username").compareTo(name) == 0) {
-				response = "Already have the same username.";
-				System.out.println(response);
+					preparedStmt.execute();
+					port++;
+				} else if (rs.getString("username").compareTo(name) == 0) {
+					response = "Already have the same username.";
+					System.out.println(response);
 
-				System.out.println(rs.getString("username"));
+					System.out.println(rs.getString("username"));
+					
+				}
+
+			} catch (Exception e) {
+				System.out.println("error");
 			}
-
-		} catch (Exception e) {
-			System.out.println("error");
+			
 		}
-		port++;
+
 		return response;
 	}
 
@@ -315,9 +333,9 @@ public class ArithmeticRMIImpl extends UnicastRemoteObject implements Arithmetic
 				ResultSet rs = st.getResultSet();
 
 				while (rs.next()) { // readline repeat
-					
+
 					if (rs.getString("username").equals(toName)) {
-						
+
 						port = Integer.parseInt(rs.getString("portNumber"));
 					}
 				}
