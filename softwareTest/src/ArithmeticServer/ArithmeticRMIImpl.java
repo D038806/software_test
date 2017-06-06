@@ -33,7 +33,7 @@ public class ArithmeticRMIImpl extends UnicastRemoteObject implements Arithmetic
 	Statement st;
 	int port = 6669;
 	int chatroom_Id = 0;
-	int subject_Id = 0, reply_Id = 20;
+	int subject_Id = 0, reply_Id = 0;
 	java.sql.Timestamp current_Time = new java.sql.Timestamp(System.currentTimeMillis()); // sql
 	boolean insideSystem = false; // teimestamp
 	// get

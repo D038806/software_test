@@ -59,19 +59,36 @@ public class ArithmeticRMIImplTest {
 	 * */
 	
 	
-	@Test
-	public void createtest() throws RemoteException {
-		ArithmeticRMIImpl rmiTest = new ArithmeticRMIImpl();
-		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO"));
-		assertEquals("creat subject success.", rmiTest.create("ADSD","","WERTYUIO"));
-		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd",""));
-		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd"," WERTYUIO"));
-		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO "));
-		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd ","WERTYUIO"));
-		assertEquals("creat subject success.", rmiTest.create("ADSD"," aaasd","WERTYUIO"));
-
-	}
+//	@Test
+//	public void createtest() throws RemoteException {
+//		ArithmeticRMIImpl rmiTest = new ArithmeticRMIImpl();
+//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO"));
+//		assertEquals("creat subject success.", rmiTest.create("ADSD","","WERTYUIO"));
+//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd",""));
+//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd"," WERTYUIO"));
+//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO "));
+//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd ","WERTYUIO"));
+//		assertEquals("creat subject success.", rmiTest.create("ADSD"," aaasd","WERTYUIO"));
+//
+//	}
 	
+	/*
+	 * 測試主題模組
+	 * 測試案例中包含:
+	 * 	(1)正常輸入 (2)欄位缺少 (3)給予不存在的  
+	 * 
+	 * 可新增name的驗證
+	 * */
+	
+	@Test
+	public void replytest() throws RemoteException {
+		ArithmeticRMIImpl rmiTest = new ArithmeticRMIImpl();
+		assertEquals("", rmiTest.reply("AAAA", 1, "OK"));
+		assertEquals("", rmiTest.reply("AAA", 1, "OK"));
+		assertEquals("", rmiTest.reply("AAAA", 1, ""));
+		assertEquals("", rmiTest.reply("", 1, "OK"));
+		assertEquals("subject isn't exist.", rmiTest.reply("AAAA", 0, "OK"));
+	}
 	
 	
 	
