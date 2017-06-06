@@ -132,43 +132,42 @@ public class ArithmeticRMIImpl extends UnicastRemoteObject implements Arithmetic
 					System.out.println(response);
 
 					System.out.println(rs.getString("username"));
-					
+
 				}
 
 			} catch (Exception e) {
 				System.out.println("error");
 			}
-			
+
 		}
 
 		return response;
 	}
 
 	public String create(String name, String subject, String subject_Content) throws java.rmi.RemoteException {
-		if (insideSystem) {
-			try {
-				connect();
-				subject_Id++;
-				// the mysql insert statement
 
-				String query = " insert into subject (subject_id, user, subject, date, content)"
-						+ " values (?, ?, ?, ?, ?)";
-				// create the mysql insert preparedstatement
-				PreparedStatement preparedStmt = conn.prepareStatement(query);
-				preparedStmt.setInt(1, subject_Id);
-				preparedStmt.setString(2, name);
-				preparedStmt.setString(3, subject);
-				preparedStmt.setTimestamp(4, current_Time);
-				preparedStmt.setString(5, subject_Content);
-				preparedStmt.execute();
+		try {
+			connect();
+			subject_Id++;
+			// the mysql insert statement
 
-				response = "creat subject success.";
-			} catch (Exception e) {
-				System.out.println("error");
-			}
-		} else {
-			response = "Please sign in the system .";
+			String query = " insert into subject (subject_id, user, subject, date, content)"
+					+ " values (?, ?, ?, ?, ?)";
+			// create the mysql insert preparedstatement
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, subject_Id);
+			preparedStmt.setString(2, name);
+			preparedStmt.setString(3, subject);
+			preparedStmt.setTimestamp(4, current_Time);
+			preparedStmt.setString(5, subject_Content);
+			preparedStmt.execute();
+
+			response = "creat subject success.";
+		} catch (Exception e) {
+			System.out.println("error");
 		}
+
+		
 
 		return response;
 	}

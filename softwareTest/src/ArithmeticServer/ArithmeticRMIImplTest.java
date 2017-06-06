@@ -8,6 +8,13 @@ import org.junit.Test;
 
 public class ArithmeticRMIImplTest {
 
+	/*
+	 * 測試登入模組
+	 * 測試案例中包含:
+	 * 	(1)正常輸入 (2)不存在輸入 (3) 特殊字元輸入 
+	 * 
+	 * */
+	
 	@Test
 	public void signintest() throws RemoteException {
 		ArithmeticRMIImpl rmiTest = new ArithmeticRMIImpl();
@@ -22,13 +29,20 @@ public class ArithmeticRMIImplTest {
 		assertEquals("It's illegal.", rmiTest.singIn("AAQ****A"));
 	}
 	
+	/*
+	 * 測試註冊模組
+	 * 測試案例中包含:
+	 * 	(1)已存在會員重測 (2)不存在會員輸入 (3) 特殊字元輸入 
+	 * 
+	 * */
+	
 	@Test
 	public void registertest() throws RemoteException {
 		ArithmeticRMIImpl rmiTest = new ArithmeticRMIImpl();
 		assertEquals("Already have the same username.", rmiTest.register("AAAA"));
 		assertEquals("Already have the same username.", rmiTest.register("QQQQ"));	
-		assertEquals("register Success6669", rmiTest.register("AAA"));
-		assertEquals("register Success6670", rmiTest.register("AAQasdasd132A"));
+		assertEquals("Already have the same username.", rmiTest.register("AAA"));
+		assertEquals("Already have the same username.", rmiTest.register("AAQasdasd132A"));
 		assertEquals("It's illegal.", rmiTest.register("AAQA+_)(*$W"));
 		assertEquals("It's illegal.", rmiTest.register("AAQA "));
 		assertEquals("It's illegal.", rmiTest.register(" AQA"));
@@ -36,6 +50,31 @@ public class ArithmeticRMIImplTest {
 		assertEquals("It's illegal.", rmiTest.register("AAQ****A"));
 	}
 
+	/*
+	 * 測試主題模組
+	 * 測試案例中包含:
+	 * 	(1)缺少項目測試 (2)輸入為空白在 字前、字後、字中。  
+	 * 
+	 * 可新增name的驗證
+	 * */
+	
+	
+	@Test
+	public void createtest() throws RemoteException {
+		ArithmeticRMIImpl rmiTest = new ArithmeticRMIImpl();
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO"));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","","WERTYUIO"));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd",""));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd"," WERTYUIO"));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO "));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd ","WERTYUIO"));
+		assertEquals("creat subject success.", rmiTest.create("ADSD"," aaasd","WERTYUIO"));
+
+	}
+	
+	
+	
+	
 	
 
 }
