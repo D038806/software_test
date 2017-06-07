@@ -59,18 +59,18 @@ public class ArithmeticRMIImplTest {
 	 * */
 	
 	
-//	@Test
-//	public void createtest() throws RemoteException {
-//		ArithmeticRMIImpl rmiTest = new ArithmeticRMIImpl();
-//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO"));
-//		assertEquals("creat subject success.", rmiTest.create("ADSD","","WERTYUIO"));
-//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd",""));
-//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd"," WERTYUIO"));
-//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO "));
-//		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd ","WERTYUIO"));
-//		assertEquals("creat subject success.", rmiTest.create("ADSD"," aaasd","WERTYUIO"));
-//
-//	}
+	 @Test
+	public void createtest() throws RemoteException {
+		ArithmeticRMIImpl rmiTest = new ArithmeticRMIImpl();
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO"));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","","WERTYUIO"));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd",""));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd"," WERTYUIO"));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd","WERTYUIO "));
+		assertEquals("creat subject success.", rmiTest.create("ADSD","aaasd ","WERTYUIO"));
+		assertEquals("creat subject success.", rmiTest.create("ADSD"," aaasd","WERTYUIO"));
+
+	}
 	
 	/*
 	 * 測試主題模組
